@@ -28,7 +28,9 @@ const useAuth = () => {
     // Dựa vào new_user, verify để biết là user mới hay user cũ và đã verify email hay chưa
     localStorage.setItem("access_token", access_token)
     localStorage.setItem("refresh_token", refresh_token)
+    console.count("🚀🚀 useAuth L31 render")
     navigate("/")
+    console.count("🚀🚀 useAuth L33 render")
   }, [params, navigate])
 }
 
