@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom";
-import "../app/App.css";
-import { googleOAuthUrl, useLogout } from "../feature/useAuth";
-import VideoPlayer from "../feature/VideoPlayer";
+import { Link } from "react-router-dom"
+import "../app/App.css"
+import { googleOAuthUrl, useLogout } from "../feature/useAuth"
+import VideoPlayer from "../feature/VideoPlayer"
 
 export default function Home() {
-  const { isAuthenticated, logout } = useLogout();
+  const { isAuthenticated, logout } = useLogout()
   return (
     <>
       <h1>Google OAuth 2.0 demo</h1>
-      <p className="read-the-docs">
+      <div className="read-the-docs">
         {isAuthenticated ? (
           <>
             <span>Hello my friend, you are logged in.</span>
@@ -18,7 +18,7 @@ export default function Home() {
           <Link to={googleOAuthUrl}>Login with Google</Link>
         )}
         <VideoPlayer />
-      </p>
+      </div>
     </>
-  );
+  )
 }
