@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 import Home from "../pages/Home"
 import Login from "../pages/Login"
+import HlsStreaming from "../pages/HlsStreaming"
 
 const OATH_PATH = "/login/oath"
 const router = createBrowserRouter([
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
   {
     path: OATH_PATH,
     element: <Login />
+  },
+  {
+    path: "/hls",
+    element: <HlsStreaming />
   }
 ])
 
