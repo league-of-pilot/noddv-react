@@ -7,11 +7,15 @@ import {
 // import '@vidstack/react/player/styles/default/theme.css'
 import '@vidstack/react/player/styles/base.css'
 import '@vidstack/react/player/styles/plyr/theme.css'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { GetVidSrcInput } from '../feature/VideoPlayer'
 import { useMediaInput } from '../feature/useMediaInput'
 
-const demoSrc = 'https://files.vidstack.io/sprite-fight/720p.mp4'
+const demoSrc = 'https://files.vidstack.io/sprite-fight/hls/stream.m3u8'
+
+const vidStaticPath = 'http://localhost:4007/static/videos/'
+const apiStreamPath = 'http://localhost:4007/api/video-hls/'
+const masterFile = '/master.m3u8'
 
 export default function HlsStreaming() {
   const { val, isStatic, onInputChange, onClickButton } = useMediaInput()
@@ -23,8 +27,10 @@ export default function HlsStreaming() {
   }
 
   const getLink = () => {
-    // const src = isStatic ? `${vidStaticPath}${val}` : `${apiStreamPath}${val}
-    setVidSrc(val)
+    const src = isStatic
+      ? `${vidStaticPath}${val}${masterFile}`
+      : `${apiStreamPath}${val}${masterFile}`
+    setVidSrc(src)
   }
 
   return (
@@ -41,7 +47,8 @@ export default function HlsStreaming() {
 
 const VidStackPlayer = ({ src }: { src: string }) => {
   return (
-    <>
+    // <Fragment key={src}>
+    <Fragment>
       <div style={{ width: '700px' }}>
         <MediaPlayer title='Sprite Fight' src={src}>
           <MediaProvider />
@@ -55,6 +62,6 @@ const VidStackPlayer = ({ src }: { src: string }) => {
         >
           <MediaProvider />
         </MediaPlayer> */}
-    </>
+    </Fragment>
   )
 }
