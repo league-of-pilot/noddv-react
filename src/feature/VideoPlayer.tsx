@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useMediaInput } from './useMediaInput'
 
 const dummyFileExtCheck = (fileUrl: string) => {
   const fileName = fileUrl.split('/').pop()
@@ -21,10 +22,10 @@ const flexGap = {
   flexDirection: 'column' as TFlexDirection
 }
 
+
 export default function VideoPlayer() {
-  const [val, setVal] = useState('')
   const [vidSrc, setVidSrc] = useState('')
-  const [isStatic, setIsStatic] = useState(true)
+  const { val, isStatic, onInputChange, onClickButton } = useMediaInput()
 
   const getLink = () => {
     const src = isStatic ? `${vidStaticPath}${val}` : `${apiStreamPath}${val}`
@@ -38,17 +39,13 @@ export default function VideoPlayer() {
     vidSrc,
     isSrcValidExt
   }
+
   return (
     <div style={flexGap}>
-      <div style={flexGap}>
+      <GetVidSrcInput {...{ val, isStatic, onClickButton, onInputChange }} />
+
+      <div>
         <div>{JSON.stringify(debug, null, 2)}</div>
-        <button onClick={() => setIsStatic(!isStatic)}>
-          {isStatic ? 'static mode' : 'stream mode'}
-        </button>
-      </div>
-      <div style={flexGap}>
-        <p>Static path</p>
-        <input type='text' value={val} onChange={e => setVal(e.target.value)} />
         <button onClick={getLink}>Submit</button>
       </div>
 
@@ -64,3 +61,30 @@ const Video = ({ vidSrc }: { vidSrc: string }) => (
     <track kind='captions' />
   </video>
 )
+
+export const GetVidSrcInput = ({
+  val,
+  isStatic,
+  onClickButton,
+  onInputChange
+}: {
+  val: string
+  isStatic: boolean
+  onClickButton: () => void
+  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}) => {
+  useMediaInput()
+  return (
+    <div style={{ width: '50%' }}>
+      <div style={flexGap}>
+        <button onClick={onClickButton}>
+          {isStatic ? 'static mode' : 'stream mode'}
+        </button>
+      </div>
+      <div style={flexGap}>
+        <p>Static path</p>
+        <input type='text' value={val} onChange={onInputChange} />
+      </div>
+    </div>
+  )
+}
