@@ -1,0 +1,16 @@
+.login-google-btn {
+  border: 1px solid red;
+  width: 150px;
+  padding-bottom: 20px
+}
+
+.flex-div-form-login {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+  border-bottom: 1px solid blue;
+}
+
+.form-login-submit-btn {
+  width: 200px;
+}
