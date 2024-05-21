@@ -1,32 +1,27 @@
 import { useEffect } from 'react'
-import { Socket, io } from 'socket.io-client'
+import { addSocketListen, socket } from './socketInit'
 
-const initSocket = () =>
-  io(
-    import.meta.env.PROD
-      ? import.meta.env.VITE_API_URL
-      : import.meta.env.VITE_API_URL
-  )
-
-const addSocketListen = (socket: Socket) => {
-  socket.on('connect', () => {
-    console.log(`🚀 ~ user ${socket.id} connect`)
-  })
-
-  socket.on('disconnect', reason => {
-    console.log(`🚀 ~ user ${socket.id} disconnect`)
-    console.log(reason)
-  })
-}
+// Vì viết dạng singleton nên việc disconnect này sẽ disconnect socket toàn app
+// Tuy nhiên nếu connect cũng chỉ connect vào 1 api socket duy nhất
 
 export const useSocket = () => {
   useEffect(() => {
     // https://socket.io/docs/v4/client-initialization/#from-a-different-domain
-    const socket = initSocket()
+    // const socket = initSocket()
+    // https://socket.io/how-to/use-with-react#disconnection
+    socket.connect()
     addSocketListen(socket)
 
     return () => {
       socket.disconnect()
     }
   }, [])
+
+  const reConnectSocket = () => socket.connect()
+  const disconnectSocket = () => socket.disconnect()
+
+  return {
+    reConnectSocket,
+    disconnectSocket
+  }
 }

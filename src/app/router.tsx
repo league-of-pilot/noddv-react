@@ -7,6 +7,7 @@ import VerifyForgotPassword from '../pages/VerifyForgotPassword'
 import VerifyEmail from '../pages/VerifyEmail'
 import { OATH_PATH } from './app.const'
 import Chat from '../pages/Chat'
+import Chat2 from '../pages/Chat2'
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: '/chat',
     element: <Chat />
+  },
+  {
+    path: '/chat2',
+    element: <Chat2 />
   }
 ])
 
