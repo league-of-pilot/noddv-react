@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { SyntheticEvent, useRef } from 'react'
+import { baseUrl } from '../app/app.const'
 
 type TLoginRes = {
-  access_token: string
-  refresh_token: string
+  result: { access_token: string; refresh_token: string }
 }
 
 export const LoginForm = () => {
@@ -23,9 +23,11 @@ export const LoginForm = () => {
 
     try {
       const {
-        data: { access_token, refresh_token }
+        data: {
+          result: { access_token, refresh_token }
+        }
       } = await axios.post<TLoginRes>('users/login', payload, {
-        baseURL: import.meta.env.VITE_API_URL + '/api/'
+        baseURL: baseUrl
       })
       localStorage.setItem('access_token', access_token)
       localStorage.setItem('refresh_token', refresh_token)
@@ -54,10 +56,11 @@ export const LoginForm = () => {
   return (
     <form className='flex-div-form-login' onSubmit={handleSubmit}>
       <label>
-        user: <input ref={refUser} defaultValue='admin@gmail.com' type='text' />
+        user:{' '}
+        <input ref={refUser} defaultValue='admin5@gmail.com' type='text' />
       </label>
       <label>
-        pass: <input ref={refPass} type='password' defaultValue='admin' />
+        pass: <input ref={refPass} type='password' defaultValue='admin123' />
       </label>
       <button type='submit' className='form-login-submit-btn'>
         Submit login

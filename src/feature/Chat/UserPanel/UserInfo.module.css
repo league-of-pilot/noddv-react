@@ -1,0 +1,24 @@
+.user-info {
+  padding: 10px;
+  border-bottom: 1px solid grey;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selected {
+  background-color: #1164a3;
+}
+
+
+.noti-message {
+  color: white;
+  background-color: red;
+  width: 20px;
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+}
