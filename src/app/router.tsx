@@ -1,13 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom'
-import Home from '../pages/Home'
-import Login from '../pages/Login'
-import HlsStreaming from '../pages/HlsStreaming'
-import ResetPassword from '../pages/ResetPassword'
-import VerifyForgotPassword from '../pages/VerifyForgotPassword'
-import VerifyEmail from '../pages/VerifyEmail'
-import { OATH_PATH } from './app.const'
 import Chat from '../pages/Chat'
 import Chat2 from '../pages/Chat2'
+import HlsStreaming from '../pages/HlsStreaming'
+import Home from '../pages/Home'
+import Login from '../pages/Login'
+import ResetPassword from '../pages/ResetPassword'
+import VerifyEmail from '../pages/VerifyEmail'
+import VerifyForgotPassword from '../pages/VerifyForgotPassword'
+import { OATH_PATH } from './app.const'
 
 const router = createBrowserRouter([
   {
