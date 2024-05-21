@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
 import './page.css'
-import { googleOAuthUrl, useLogout } from '../feature/useAuth'
+import { useLogout } from '../feature/useAuth'
 import VideoPlayer from '../feature/VideoPlayer'
 import { LoginForm } from '../feature/LoginForm'
+import { googleOAuthUrl } from '../feature/useCodeParamLogin'
 
 export default function Home() {
   const { isAuthenticated, logout } = useLogout()

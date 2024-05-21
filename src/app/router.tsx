@@ -5,8 +5,8 @@ import HlsStreaming from '../pages/HlsStreaming'
 import ResetPassword from '../pages/ResetPassword'
 import VerifyForgotPassword from '../pages/VerifyForgotPassword'
 import VerifyEmail from '../pages/VerifyEmail'
+import { OATH_PATH } from './app.const'
 
-const OATH_PATH = '/login/oath'
 const router = createBrowserRouter([
   {
     path: '/',
