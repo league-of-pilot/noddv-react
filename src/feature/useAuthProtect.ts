@@ -1,6 +1,6 @@
-import { baseUrl } from './../app/app.const'
-import axios, { isAxiosError } from 'axios'
+import { isAxiosError } from 'axios'
 import { useEffect, useState } from 'react'
+import { getMe } from './getMe.axios'
 
 export const useAuthProtect = () => {
   const [authState, setAuthState] = useState('pending')
@@ -10,16 +10,15 @@ export const useAuthProtect = () => {
     const controller = new AbortController()
     const access_token = localStorage.getItem('access_token') ?? ''
 
-    const getMe = async () => {
+    const tryGetMe = async () => {
       try {
-        const res = await axios.get('/users/getMe', {
-          headers: {
-            Authorization: `Bearer ${access_token}`
-          },
-          baseURL: baseUrl,
-          signal: controller.signal
-        })
-        console.log('🚀 useAuthProtect L17-data', res)
+        const res = await getMe(access_token, controller)
+
+        const {
+          data: { email }
+        } = res
+        localStorage.setItem('email-ddv', email)
+
         setAuthState('isAuth')
       } catch (error) {
         if (isAxiosError(error) && typeof error.response?.status === 'number') {
@@ -30,7 +29,7 @@ export const useAuthProtect = () => {
       }
     }
 
-    getMe()
+    tryGetMe()
 
     return () => {
       controller.abort()

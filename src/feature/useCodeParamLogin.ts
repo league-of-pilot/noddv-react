@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { isAxiosError } from 'axios'
+import { getMe } from './getMe.axios'
 
 export const useCodeParamLogin = () => {
   const [params] = useSearchParams()
@@ -17,7 +19,27 @@ export const useCodeParamLogin = () => {
     localStorage.setItem('access_token', access_token)
     localStorage.setItem('refresh_token', refresh_token)
     console.count('🚀🚀 useAuth L31 render')
-    navigate('/')
+
+    const controller = new AbortController()
+    const tryGetMe = async () => {
+      try {
+        const res = await getMe(access_token, controller)
+
+        const {
+          data: { email }
+        } = res
+        localStorage.setItem('email-ddv', email)
+        navigate('/')
+      } catch (error) {
+        if (isAxiosError(error) && typeof error.response?.status === 'number') {
+          alert(error)
+        }
+        console.log('🚀 ~ error in code login:', error)
+      }
+    }
+
+    tryGetMe()
+
     console.count('🚀🚀 useAuth L33 render')
   }, [params, navigate])
 }

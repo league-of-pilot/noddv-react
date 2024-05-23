@@ -6,6 +6,8 @@ export const useLogout = () => {
   const logout = useCallback(() => {
     localStorage.removeItem('access_token')
     localStorage.removeItem('refresh_token')
+    localStorage.removeItem('email-ddv')
+
     window.location.reload()
   }, [])
 

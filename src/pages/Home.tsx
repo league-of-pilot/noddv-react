@@ -7,6 +7,7 @@ import { googleOAuthUrl } from '../feature/useCodeParamLogin'
 
 export default function Home() {
   const { isAuthenticated, logout } = useLogout()
+  const email = localStorage.getItem('email-ddv')
 
   return (
     <>
@@ -14,7 +15,7 @@ export default function Home() {
       <div className='read-the-docs'>
         {isAuthenticated ? (
           <>
-            <span>Hello my friend, you are logged in.</span>
+            <span>{`Hello [ ${email} ], you are logged in.`}</span>
             <button onClick={logout}>Logout</button>
           </>
         ) : (
