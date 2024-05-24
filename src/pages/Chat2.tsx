@@ -1,6 +1,6 @@
 import ChatPanel from '../feature/Chat/ChatPanel/ChatPanel'
 import UserPanel from '../feature/Chat/UserPanel/UserPanel'
-import { useSocket } from '../feature/useSocket'
+import { useSocket } from '../feature/Chat/chatSocket/useSocket'
 import styles from './Chat2.module.css'
 
 export default function Chat2() {

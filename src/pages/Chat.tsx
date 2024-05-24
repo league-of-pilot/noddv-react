@@ -1,4 +1,4 @@
-import { useSocket } from '../feature/useSocket'
+import { useSocket } from '../feature/Chat/chatSocket/useSocket'
 
 export default function Chat() {
   const { disconnectSocket, reConnectSocket } = useSocket()

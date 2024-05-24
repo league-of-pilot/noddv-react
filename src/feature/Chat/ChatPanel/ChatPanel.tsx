@@ -4,11 +4,13 @@ import { SyntheticEvent, useRef } from 'react'
 import UserStatus from '../UserPanel/UserStatus'
 import styles from './ChatPanel.module.css'
 import MessageItem from './MessageItem'
-import { useSocket } from '../../useSocket'
+import { useSocket } from '../chatSocket/useSocket'
+import { useSocketUser } from '../chatSocket/useSocketUser'
 
 export default function ChatPanel() {
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const { socket } = useSocket()
+  useSocketUser(socket)
 
   const submitMes = (e: SyntheticEvent) => {
     e.preventDefault()

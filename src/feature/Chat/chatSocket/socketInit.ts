@@ -19,6 +19,10 @@ export const addSocketListen = (socket: Socket) => {
     console.log(`🚀 ~ user ${socket.id} connect`)
   })
 
+  socket.onAny((event, ...args) => {
+    console.log('socket debug', event, args)
+  })
+
   socket.on('disconnect', reason => {
     console.log(`🚀 ~ user ${socket.id} disconnect`)
     console.log(reason)
