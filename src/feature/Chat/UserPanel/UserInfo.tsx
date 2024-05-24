@@ -1,11 +1,17 @@
+import { TSocketSession } from '../chatSocket/socket.type'
 import styles from './UserInfo.module.css'
 import UserStatus from './UserStatus'
 
-export default function UserInfo() {
+type TUserInfo = {
+  user: TSocketSession
+  isMe: boolean
+}
+
+export default function UserInfo({user, isMe} :TUserInfo ) {
   return (
     <div className={styles['user-info']}>
       <div>
-        <div>Username</div>
+        <div>{user.email} {isMe && `(me)`}</div>
         <UserStatus />
       </div>
 
