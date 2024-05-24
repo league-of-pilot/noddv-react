@@ -5,7 +5,7 @@ import { addSocketListen, socket } from './socketInit'
 // Tuy nhiên nếu connect cũng chỉ connect vào 1 api socket duy nhất
 
 export const useSocket = (payload?: { [key: string]: unknown }) => {
-  // const token = payload?.['Authorization'] as string
+  const token = payload?.['Authorization'] as string
 
   useEffect(() => {
     // TODO: tạm thời check thử xem dùng obj sẽ ảnh hưởng render ntn
@@ -15,16 +15,19 @@ export const useSocket = (payload?: { [key: string]: unknown }) => {
     // const socket = initSocket()
     // https://socket.io/how-to/use-with-react#disconnection
     if (payload) {
-      socket.auth = payload
+      socket.auth = {
+        Authorization: token
+      }
     }
 
     socket.connect()
     addSocketListen(socket)
 
     return () => {
+      console.count("🚀🚀 useSocket disconnect")
       socket.disconnect()
     }
-  }, [payload])
+  }, [token])
 
   const reConnectSocket = () => socket.connect()
   const disconnectSocket = () => socket.disconnect()
