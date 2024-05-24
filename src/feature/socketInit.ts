@@ -23,4 +23,8 @@ export const addSocketListen = (socket: Socket) => {
     console.log(`🚀 ~ user ${socket.id} disconnect`)
     console.log(reason)
   })
+
+  socket.on('connect_error', err => {
+    console.log('🚀 ~ err:', { err })
+  })
 }

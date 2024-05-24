@@ -21,6 +21,7 @@ export const useSocket = () => {
   const disconnectSocket = () => socket.disconnect()
 
   return {
+    socket,
     reConnectSocket,
     disconnectSocket
   }
