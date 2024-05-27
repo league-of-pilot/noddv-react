@@ -5,8 +5,13 @@ import UserStatus from '../UserPanel/UserStatus'
 import { useSocket } from '../chatSocket/useSocket'
 import styles from './ChatPanel.module.css'
 import MessageItem from './MessageItem'
+import { TSocketSession } from '../chatSocket/socket.type'
 
-export default function ChatPanel() {
+type TChatPanel = {
+  receiver: TSocketSession | undefined
+}
+
+export default function ChatPanel({ receiver }: TChatPanel) {
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const { socket } = useSocket()
 
@@ -19,11 +24,11 @@ export default function ChatPanel() {
     inputRef.current.value = ''
   }
 
-  return (
+  return receiver ? (
     <div className={styles['chat-panel-layout']}>
       <div className={styles['header']}>
-        UserName
-        <UserStatus />
+        {receiver.email}
+        <UserStatus isConnected={receiver.isConnected} />
       </div>
 
       <div className={styles['message-section']}>
@@ -44,5 +49,7 @@ export default function ChatPanel() {
         </button>
       </form>
     </div>
+  ) : (
+    <div>Select users to begin chat</div>
   )
 }
