@@ -19,8 +19,12 @@ export type TReceiveMessage = {
 
 export type TSelectReceiver = (user: TSocketSession) => void
 
-export type TMessage = {
-  from: TSocketSession
-  to: TSocketSession
+export type TMessChat = {
+  sender_id: string
+  receiver_id: string
   content: string
+}
+
+export type TMessChatDto = {
+  result: TMessChat[]
 }

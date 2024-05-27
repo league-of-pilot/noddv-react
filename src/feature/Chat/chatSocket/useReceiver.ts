@@ -1,7 +1,14 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { TMessage, TReceiveMessage, TSocketSession } from './socket.type'
+import {
+  TMessChat,
+  TMessChatDto,
+  TReceiveMessage,
+  TSocketSession
+} from './socket.type'
 import { Socket } from 'socket.io-client'
 import { skEv } from './socket.const'
+import axios from 'axios'
+import { getAxiosController } from '../../../utils/axiosController'
 
 type TUseReceiver = {
   socket: Socket
@@ -55,7 +62,38 @@ export const useReceiver = ({ socket, users, setUsers }: TUseReceiver) => {
   return [receiver, selectReceiver] as const
 }
 
-export const useMessage = () => {
-  const [message, setMessage] = useState<TMessage[]>([])
+export const useMessage = (receiver_id: string) => {
+  const [message, setMessage] = useState<TMessChat[]>([])
+
+  useEffect(() => {
+    const { axiosOption, controller } = getAxiosController()
+    const paramsOptions = {
+      params: {
+        limit: 10,
+        page: 1
+      }
+    }
+
+    const getMess = async () => {
+      if (receiver_id) {
+        const res = await axios.get<TMessChatDto>(
+          `/chatHistory/${receiver_id}`,
+          {
+            ...axiosOption,
+            ...paramsOptions
+          }
+        )
+        const mess = res.data.result
+        setMessage(mess)
+      }
+    }
+
+    getMess()
+
+    return () => {
+      controller.abort()
+    }
+  }, [receiver_id])
+
   return [message, setMessage] as const
 }

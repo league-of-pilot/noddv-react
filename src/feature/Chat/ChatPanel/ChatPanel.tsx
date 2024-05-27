@@ -15,7 +15,7 @@ type TChatPanel = {
 export default function ChatPanel({ receiver }: TChatPanel) {
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const { socket } = useSocket()
-  const [message, setMessage] = useMessage()
+  const [message] = useMessage(receiver?.id || '')
 
   const submitMes = (e: SyntheticEvent) => {
     e.preventDefault()
@@ -41,7 +41,7 @@ export default function ChatPanel({ receiver }: TChatPanel) {
 
       <div className={styles['message-section']}>
         {message.map(mess => (
-          <MessageItem />
+          <MessageItem mess={mess} />
         ))}
       </div>
 
