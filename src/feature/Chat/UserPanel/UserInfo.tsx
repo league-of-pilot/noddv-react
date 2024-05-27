@@ -23,7 +23,7 @@ export default function UserInfo({ user, isMe, selectUser }: TUserInfo) {
         <UserStatus isConnected={user.isConnected} />
       </div>
 
-      <div className={styles['noti-message']}>!</div>
+      {user.newMess && <div className={styles['noti-message']}>!</div>}
     </div>
   )
 }

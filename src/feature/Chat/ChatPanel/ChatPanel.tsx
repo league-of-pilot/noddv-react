@@ -5,7 +5,8 @@ import UserStatus from '../UserPanel/UserStatus'
 import { useSocket } from '../chatSocket/useSocket'
 import styles from './ChatPanel.module.css'
 import MessageItem from './MessageItem'
-import { TSocketSession } from '../chatSocket/socket.type'
+import { TMessagePayload, TSocketSession } from '../chatSocket/socket.type'
+import { useMessage } from '../chatSocket/useReceiver'
 
 type TChatPanel = {
   receiver: TSocketSession | undefined
@@ -14,13 +15,20 @@ type TChatPanel = {
 export default function ChatPanel({ receiver }: TChatPanel) {
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const { socket } = useSocket()
+  const [message, setMessage] = useMessage()
 
   const submitMes = (e: SyntheticEvent) => {
     e.preventDefault()
-    if (!inputRef.current || !inputRef.current.value) return
+    if (!inputRef.current || !inputRef.current.value || !receiver) return
 
-    console.log(inputRef.current.value)
-    socket.emit('send_message', inputRef.current.value)
+    const payload: TMessagePayload = {
+      to: receiver.id,
+      content: inputRef.current.value
+    }
+
+    socket.emit('send_message', payload)
+    console.log('🚀 ChatPanel L29-payload', payload)
+
     inputRef.current.value = ''
   }
 
@@ -32,9 +40,9 @@ export default function ChatPanel({ receiver }: TChatPanel) {
       </div>
 
       <div className={styles['message-section']}>
-        <MessageItem />
-        <MessageItem />
-        <MessageItem />
+        {message.map(mess => (
+          <MessageItem />
+        ))}
       </div>
 
       <form className={styles['form-chat']}>

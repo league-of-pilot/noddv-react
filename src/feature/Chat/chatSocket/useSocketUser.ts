@@ -59,8 +59,6 @@ export const useSocketUser = (socket: Socket) => {
       setUsers(tempUsers)
     })
 
-    socket.onAny((...args) => console.log(args))
-
     return () => {
       console.count('🚀🚀 useSocketUser cleanup')
       // https://socket.io/how-to/use-with-react#cleanup

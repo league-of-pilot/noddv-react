@@ -2,6 +2,9 @@ export type TSocketSession = {
   email: string
   id: string
   isConnected: boolean
+
+  // Xử lý cách này chỉ lưu trên front-end, ko solve bài toán hoàn toàn
+  newMess?: boolean
 }
 
 export type TMessagePayload = {

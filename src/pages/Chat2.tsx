@@ -9,9 +9,13 @@ export default function Chat2() {
   const access_token = localStorage.getItem('access_token')
 
   const { socket } = useSocket({ Authorization: `Bearer ${access_token}` })
-  const { users } = useSocketUser(socket)
+  const { users, setUsers } = useSocketUser(socket)
 
-  const [receiver, selectReceiver] = useReceiver(users)
+  const [receiver, selectReceiver] = useReceiver({
+    socket,
+    users,
+    setUsers
+  })
 
   return (
     <div className=''>
