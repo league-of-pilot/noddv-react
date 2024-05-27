@@ -6,6 +6,7 @@ export type TGetMe = {
   email: string
   username: string
   verify: number
+  _id: string
 }
 
 export const getMe = (access_token: string, controller: AbortController) =>

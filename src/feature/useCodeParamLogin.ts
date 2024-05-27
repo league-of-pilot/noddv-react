@@ -29,6 +29,7 @@ export const useCodeParamLogin = () => {
           data: { email }
         } = res
         localStorage.setItem('email-ddv', email)
+        localStorage.setItem('user-ddv', JSON.stringify(res.data))
         navigate('/')
       } catch (error) {
         if (isAxiosError(error) && typeof error.response?.status === 'number') {

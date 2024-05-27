@@ -18,6 +18,7 @@ export const useAuthProtect = () => {
           data: { email }
         } = res
         localStorage.setItem('email-ddv', email)
+        localStorage.setItem('user-ddv', JSON.stringify(res.data))
 
         setAuthState('isAuth')
       } catch (error) {
