@@ -14,7 +14,7 @@ export const useSocket = (payload?: { [key: string]: unknown }) => {
     // https://socket.io/docs/v4/client-initialization/#from-a-different-domain
     // const socket = initSocket()
     // https://socket.io/how-to/use-with-react#disconnection
-    if (payload) {
+    if (token) {
       socket.auth = {
         Authorization: token
       }
@@ -24,7 +24,7 @@ export const useSocket = (payload?: { [key: string]: unknown }) => {
     addSocketListen(socket)
 
     return () => {
-      console.count("🚀🚀 useSocket disconnect")
+      console.count('🚀🚀 useSocket disconnect')
       socket.disconnect()
     }
   }, [token])

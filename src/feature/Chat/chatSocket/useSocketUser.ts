@@ -8,8 +8,8 @@
 
 import { useEffect, useState } from 'react'
 import { Socket } from 'socket.io-client'
-import { TSocketSession } from './socket.type'
 import { skEv } from './socket.const'
+import { TSocketSession } from './socket.type'
 
 const sortUsersWithSelf = (data: TSocketSession[]) => {
   const self = localStorage.getItem('email-ddv') as string

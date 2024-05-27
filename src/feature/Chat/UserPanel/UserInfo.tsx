@@ -1,5 +1,4 @@
-import { TSocketSession } from '../chatSocket/socket.type'
-import { TSelectReceiver } from '../chatSocket/useReceiver'
+import { TSelectReceiver, TSocketSession } from '../chatSocket/socket.type'
 import styles from './UserInfo.module.css'
 import UserStatus from './UserStatus'
 
